@@ -59,8 +59,8 @@ public class TankFrame extends Frame {
         g.drawString("子弹数量"+list.size(),30,70);
        // g.setColor(c);不知道有啥用
         tank.tankpaint(g);
-        for (Bullet bullet : list){
-            bullet.bPaint(g);
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).bPaint(g);
         }
     }
 
