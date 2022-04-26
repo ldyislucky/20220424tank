@@ -12,6 +12,14 @@ public class Tank {
     private Dir dir;
     private boolean Moving = false;
     private final static int speed = 10 ;
+    private TankFrame tankFrame;
+
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+        this.tankFrame = tankFrame;
+    }
 
     public Tank(int x, int y, Dir dir) {
       this.x = x;
@@ -20,6 +28,7 @@ public class Tank {
     }
 
     public void tankpaint(Graphics g){
+      g.setColor(Color.MAGENTA);
       g.fillRect(x,y,50,50);
       if (Moving){
         switch (dir){
@@ -37,6 +46,9 @@ public class Tank {
             break;
         }
       }
+    }
+    public void fire(){
+        tankFrame.list.add(new Bullet(x,y,this.dir,tankFrame));
     }
 
   public boolean isMoving() {
