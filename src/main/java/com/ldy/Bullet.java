@@ -26,7 +26,7 @@ public class Bullet {
     g.fillOval(x,y,20,20);
     move();
     if (!live){
-          //没啥用！！
+      tankFrame.list.remove(this);
     }
   }
 
@@ -46,8 +46,7 @@ public class Bullet {
           break;
       }
       if (x<0||y<0||x>tankFrame.w||y>tankFrame.h){
-        //this.live=false;
-        tankFrame.list.remove(this);
+        this.live=false;
       }
   }
 }
