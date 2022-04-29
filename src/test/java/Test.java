@@ -1,6 +1,7 @@
 import com.ldy.ResurseMgr;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,5 +32,12 @@ public class Test {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  @org.junit.Test
+  public void  test2(){
+    int width = ResurseMgr.tankD.getWidth();
+    Graphics graphics = ResurseMgr.tankD.getGraphics();
+    System.out.println(graphics);
+    System.out.println(width);
   }
 }

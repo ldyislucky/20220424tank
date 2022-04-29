@@ -23,10 +23,26 @@ public class Bullet {
 
   public void bPaint(Graphics g){
     g.setColor(Color.GREEN);
-    g.fillOval(x,y,20,20);
+    switch (dir){
+      case LEFT:
+        g.fillOval(x-20,y+10,10,10);
+        break;
+      case RIGHT:
+        g.fillOval(x+40,y+10,10,10);
+        break;
+      case UP:
+        g.fillOval(x+10,y-20,10,10);
+        break;
+      case DOWN:
+        g.fillOval(x+10,y+40,10,10);
+        break;
+      default:
+        break;
+    }
+
     move();
     if (!live){
-      tankFrame.list.remove(this);
+      tankFrame.bullets.remove(this);
     }
   }
 
@@ -48,5 +64,34 @@ public class Bullet {
       if (x<0||y<0||x>tankFrame.w||y>tankFrame.h){
         this.live=false;
       }
+  }
+
+  public int getX() {
+    return x;
+  }
+
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public void setY(int y) {
+    this.y = y;
+  }
+  public  void collision(Tank tank){
+    Rectangle rec1 = new Rectangle(this.x, this.y, 10, 10);
+    Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), 60, 60);
+    if (rec1.intersects(rec2)){
+      this.die();
+      tank.die();
+    }
+
+  }
+
+  private void die() {
+    tankFrame.bullets.remove(this);
   }
 }
