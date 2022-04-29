@@ -19,7 +19,7 @@ public class TankFrame extends Frame {
     int x=200; int y=500;
     final int w=1200,h=800;
     Dir dir = Dir.DOWN;
-    Tank tank = new Tank(x,y,dir,this);
+    Tank tank = new Tank(x,y,dir,this,Group.GOOD);
     List<Bullet> bullets = new ArrayList();
     List<Tank> tanks = new ArrayList<>();
     public TankFrame (){

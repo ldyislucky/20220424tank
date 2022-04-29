@@ -12,29 +12,30 @@ public class Bullet {
   private final int speed = 20;
   private TankFrame tankFrame ;
   private boolean live = true;
+  private Group group = Group.BAD;
 
-  public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+  public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
     this.x = x;
     this.y = y;
     this.dir = dir;
     this.tankFrame = tankFrame;
+    this.group = group;
   }
-
 
   public void bPaint(Graphics g){
     g.setColor(Color.GREEN);
     switch (dir){
       case LEFT:
-        g.fillOval(x-20,y+10,10,10);
+        g.fillOval(x-5,y+25,10,10);
         break;
       case RIGHT:
-        g.fillOval(x+40,y+10,10,10);
+        g.fillOval(x+55,y+25,10,10);
         break;
       case UP:
-        g.fillOval(x+10,y-20,10,10);
+        g.fillOval(x+25,y-5,10,10);
         break;
       case DOWN:
-        g.fillOval(x+10,y+40,10,10);
+        g.fillOval(x+25,y+55,10,10);
         break;
       default:
         break;
@@ -81,7 +82,17 @@ public class Bullet {
   public void setY(int y) {
     this.y = y;
   }
+
+  public Group getGroup() {
+    return group;
+  }
+
+  public void setGroup(Group group) {
+    this.group = group;
+  }
+
   public  void collision(Tank tank){
+    if (tank.getGroup()==this.group) return;
     Rectangle rec1 = new Rectangle(this.x, this.y, 10, 10);
     Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), 60, 60);
     if (rec1.intersects(rec2)){

@@ -1,6 +1,7 @@
 package com.ldy;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author : ldy
@@ -10,17 +11,19 @@ public class Tank {
     private int x;
     private int y;
     private Dir dir;
-    private boolean Moving = false;
-    private final static int speed = 10 ;
+    private boolean Moving = true;
+    private final static int speed = 5 ;
     private final TankFrame tankFrame;
+    private Group group = Group.BAD;
+    private Random random = new Random();
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
+        this.group = group;
     }
-
 
     public void tankpaint(Graphics g){
       //g.setColor(Color.MAGENTA);
@@ -55,10 +58,13 @@ public class Tank {
             y+=speed;
             break;
         }
+        if (random.nextInt(10)>8){
+            fire();
+        }
       }
     }
     public void fire(){
-        tankFrame.bullets.add(new Bullet(x+15,y+15,this.dir,tankFrame));
+        tankFrame.bullets.add(new Bullet(x,y,this.dir,tankFrame,this.group));
     }
 
 
@@ -86,6 +92,15 @@ public class Tank {
     public void setY(int y) {
         this.y = y;
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public void die(){
         tankFrame.tanks.remove(this);
     }
