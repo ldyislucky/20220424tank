@@ -13,6 +13,7 @@ public class Bullet {
   private TankFrame tankFrame ;
   private boolean live = true;
   private Group group = Group.BAD;
+  private Explode explode = new Explode();
 
   public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
     this.x = x;
@@ -91,11 +92,12 @@ public class Bullet {
     this.group = group;
   }
 
-  public  void collision(Tank tank){
+  public  void collision(Tank tank,Graphics g,int a,int b){//碰撞检测
     if (tank.getGroup()==this.group) return;
     Rectangle rec1 = new Rectangle(this.x, this.y, 10, 10);
     Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), 60, 60);
     if (rec1.intersects(rec2)){
+      explode.explodePaint(g,a,b);
       this.die();
       tank.die();
     }

@@ -28,40 +28,56 @@ public class Tank {
     public void tankpaint(Graphics g){
       //g.setColor(Color.MAGENTA);
       //g.fillRect(x,y,50,50);
-        switch (dir){
-            case LEFT:
-                g.drawImage(ResurseMgr.tankL,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(ResurseMgr.tankR,x,y,null);
-                break;
-            case UP:
-                g.drawImage(ResurseMgr.tankU,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(ResurseMgr.tankD,x,y,null);
-                break;
+        if (this.x<=100||this.x>=1100||this.y<=100||this.y>=700){
+            switch (dir){
+                case LEFT:
+                    this.dir=Dir.RIGHT;
+                    break;
+                case RIGHT:
+                    this.dir=Dir.LEFT;
+                    break;
+                case UP:
+                    this.dir=Dir.DOWN;
+                    break;
+                case DOWN:
+                    this.dir=Dir.UP;
+                    break;
+            }
         }
+            switch (dir){
+                case LEFT:
+                    g.drawImage(ResurseMgr.tankL,x,y,null);
+                    break;
+                case RIGHT:
+                    g.drawImage(ResurseMgr.tankR,x,y,null);
+                    break;
+                case UP:
+                    g.drawImage(ResurseMgr.tankU,x,y,null);
+                    break;
+                case DOWN:
+                    g.drawImage(ResurseMgr.tankD,x,y,null);
+                    break;
+            }
 
-      if (Moving){
-        switch (dir){
-          case LEFT:
-            x-=speed;
-            break;
-          case RIGHT:
-            x+=speed;
-            break;
-          case UP:
-            y-=speed;
-            break;
-          case DOWN:
-            y+=speed;
-            break;
-        }
-        if (random.nextInt(10)>8){
-            fire();
-        }
-      }
+            if (Moving){
+                switch (dir){
+                    case LEFT:
+                        x-=speed;
+                        break;
+                    case RIGHT:
+                        x+=speed;
+                        break;
+                    case UP:
+                        y-=speed;
+                        break;
+                    case DOWN:
+                        y+=speed;
+                        break;
+                }
+                if (random.nextInt(10)>8){
+                    fire();
+                }
+            }
     }
     public void fire(){
         tankFrame.bullets.add(new Bullet(x,y,this.dir,tankFrame,this.group));
