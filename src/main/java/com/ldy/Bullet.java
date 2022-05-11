@@ -14,6 +14,7 @@ public class Bullet {
   private boolean live = true;
   private Group group = Group.BAD;
   private Explode explode = new Explode();
+  Rectangle rect = new Rectangle();
 
   public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
     this.x = x;
@@ -21,6 +22,10 @@ public class Bullet {
     this.dir = dir;
     this.tankFrame = tankFrame;
     this.group = group;
+    rect.x=this.x;
+    rect.y=this.y;
+    rect.height=10;
+    rect.width=10;
   }
 
   public void bPaint(Graphics g){
@@ -63,6 +68,8 @@ public class Bullet {
           y += speed;
           break;
       }
+      rect.x=this.x;
+      rect.y=this.y;
       if (x<0||y<0||x>tankFrame.w||y>tankFrame.h){
         this.live=false;
       }
@@ -92,12 +99,12 @@ public class Bullet {
     this.group = group;
   }
 
-  public  void collision(Tank tank,Graphics g,int a,int b){//碰撞检测
+  public  void collision(Tank tank,Graphics g){//碰撞检测
     if (tank.getGroup()==this.group) return;
-    Rectangle rec1 = new Rectangle(this.x, this.y, 10, 10);
-    Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), 60, 60);
+    Rectangle rec1 = tank.rect;
+    Rectangle rec2 = this.rect;
     if (rec1.intersects(rec2)){
-      explode.explodePaint(g,a,b);
+      explode.explodePaint(g,this.x,this.y);
       this.die();
       tank.die();
     }

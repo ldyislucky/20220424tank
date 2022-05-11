@@ -16,6 +16,7 @@ public class Tank {
     private final TankFrame tankFrame;
     private Group group = Group.BAD;
     private Random random = new Random();
+    Rectangle rect = new Rectangle();
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
@@ -23,6 +24,10 @@ public class Tank {
         this.dir = dir;
         this.tankFrame = tankFrame;
         this.group = group;
+        rect.x=this.x;
+        rect.y=this.y;
+        rect.height=60;
+        rect.width=60;
     }
 
     public void tankpaint(Graphics g){
@@ -74,6 +79,8 @@ public class Tank {
                         y+=speed;
                         break;
                 }
+                rect.x=this.x;
+                rect.y=this.y;
                 if (random.nextInt(10)>8){
                     fire();
                 }
